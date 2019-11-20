@@ -4,7 +4,8 @@
 Vue.component('container', {
     template: `
     <div>
-        <div v-for='i in listItems'> 
+        <div>loading: {{ $presenter.view.loading }}</div>
+        <div v-for='i in $presenter.view.listItems'> 
             <p>{{ i }}</p>
         </div>
         <button @click="{{ $presenter.getMoreListItems(event) }}">click</button>
@@ -13,10 +14,10 @@ Vue.component('container', {
     data: function() { 
         return this.$presenter.view
     },
-    mounted: function () {
+    mounted: function() {
         this.subscription = this.$presenter.getInitialState().subscribe()
     },
-    beforeDestroy: function () {
+    beforeDestroy: function() {
         this.subscription.unsubscribe()
     }
 })

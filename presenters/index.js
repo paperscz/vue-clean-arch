@@ -9,11 +9,15 @@ class Presenter {
 
     getInitialState() {
         return this.service.getListItems().pipe(
-            rxjs.operators.map(item => this.view.listItems.push(...item))
+            rxjs.operators.map(item => {
+                this.view.loading = false
+                this.view.listItems.push(...item)
+            })
         )
     }
 
     getMoreListItems(event) {
+        this.view.loading = true
         return this.service.getMoreListItems()
     }
 
