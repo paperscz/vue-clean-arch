@@ -8,5 +8,6 @@ services:
       - ${PWD}/log:/var/log/nginx/
     environment: 
       - PORT=80
+      - TZ=Asia/Bangkok
     ports:
       - 80:80
