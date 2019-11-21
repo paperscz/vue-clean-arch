@@ -1,23 +1,36 @@
 /**
  *  Don't do anything here, just show the data from view models or call presenter methods
  * */
-Vue.component('container', {
+Vue.component('item-container', {
     template: `
-    <div>
-        <div>loading: {{ $presenter.view.loading }}</div>
-        <div v-for='i in $presenter.view.listItems'> 
-            <p>{{ i }}</p>
-        </div>
-        <button @click="{{ $presenter.getMoreListItems(event) }}">click</button>
+    <div class="container">
+        <div> loading: {{ $itemPresenter.view.loading }}</div>
+        <button type="button" class="btn btn-primary" @click="{{ $itemPresenter.clearItem($event) }}">Clear Item</button>
+        <button type="button" class="btn btn-primary" @click="{{ $itemPresenter.getMoreListItems($event) }}">Load More</button>
+        <button type="button" class="btn btn-primary" @click="{{ $itemPresenter.disposal($event) }}">Disposal Presenter</button>
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">item * 2</th>
+            </tr>
+            </thead>
+            <tbody  v-for='(i, index) in $itemPresenter.view.listItems'>
+            <tr>
+                <th scope="row">{{ index }}</th>
+                <td>{{ i }}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     `,
     data: function() { 
-        return this.$presenter.view
+        return this.$itemPresenter.view
     },
     mounted: function() {
-        this.subscription = this.$presenter.getInitialState().subscribe()
+            this.$itemPresenter.getInitialState()
     },
     beforeDestroy: function() {
-        this.subscription.unsubscribe()
+        this.$itemPresenter.disposal()
     }
 })

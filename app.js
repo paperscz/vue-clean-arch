@@ -3,15 +3,15 @@ const localStorageRepository = new LocalStorageRepository()
 const httpRepository = new HttpRepository()
 
 // TODO: add more service here
-const service = new Service(httpRepository)
+const svc0 = new ItemService(httpRepository)
 
 // TODO: add more presenter here
-const presenter = new Presenter(service)
+const itemPresenter = new ItemPresenter(svc0)
 
 
 Vue.use({    
     install (Vue) {
-        Vue.prototype.$presenter = presenter;
+        Vue.prototype.$itemPresenter = itemPresenter;
     }
 })
 
