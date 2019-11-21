@@ -1,0 +1,12 @@
+version: "2"
+services:
+  web:
+    build: .
+    image: vue
+    container_name: vue
+    volumes: 
+      - ${PWD}/log:/var/log/nginx/
+    environment: 
+      - PORT=80
+    ports:
+      - 80:80
